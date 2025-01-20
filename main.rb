@@ -4,9 +4,11 @@ require './lib/Package'
 require './lib/ExcelParser'
 require './lib/Database'
 
+# Reads an Excel file (thanks to ExcelParser class) and creates the Order, Package and Item data tree.
+# @param file_path [String] the path to the Excel file
+# @return [Hash] the orders data tree
 def get_orders(file_path)
     orders = {}
-
     ExcelParser.new(file_path).parse_lines do |parsed_line|
         order = orders[parsed_line.order_name]
         unless order
@@ -32,12 +34,14 @@ def get_orders(file_path)
     orders
 end
 
+# Prints the orders data tree
 def print_orders(orders)
     orders.each do |order_id, order|
         order.dump
     end
 end
 
+# Saves the orders data tree to the database
 def save_to_db(orders, db)
     orders.each do |order_name, order|
         order.save_to_db(db)
