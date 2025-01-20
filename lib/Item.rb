@@ -6,7 +6,6 @@ class Item < IDatabaseObject
                 :ref,
                 :warranty,
                 :duration,
-                :item_id,
                 :package_id
 
   def db_table_name
@@ -33,6 +32,10 @@ class Item < IDatabaseObject
     }
   end
 
+  def db_primary_key
+    'itemid'
+  end
+
   ALLOWED_ATTRIBUTES = %i[name price ref warranty duration].freeze
   def initialize(name = nil, price = nil, ref = nil, warranty = nil, duration = nil)
     @name = name
@@ -50,7 +53,6 @@ class Item < IDatabaseObject
   end
 
   def save_to_db(db)
-    @item_id = db.get_next_id(self.db_table_name, 'itemid')
-    db.saveObject(self)
+    @item_id = db.saveObject(self)
   end
 end

@@ -1,7 +1,7 @@
 require './lib/IDatabaseObject'
 
 class Package
-  attr_accessor :items, :package_id, :order_id
+  attr_accessor :items, :order_id
 
   def db_table_name
     'packages'
@@ -12,6 +12,10 @@ class Package
       packageid: @package_id,
       orderid: @order_id
     }
+  end
+
+  def db_primary_key
+    'packageid'
   end
 
   def initialize(items: {})
@@ -27,8 +31,7 @@ class Package
   end
 
   def save_to_db(db)
-    @package_id = db.get_next_id(self.db_table_name, 'packageid')
-    db.saveObject(self)
+    @package_id = db.saveObject(self)
     @items.each do |item_id, item|
       item.package_id = @package_id
       item.save_to_db(db)
