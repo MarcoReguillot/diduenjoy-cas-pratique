@@ -1,6 +1,6 @@
-require './lib/Item'
-require './lib/Order'
-require './lib/Package'
+require './lib/objects/Item'
+require './lib/objects/Order'
+require './lib/objects/Package'
 require './lib/ExcelParser'
 require './lib/Database'
 
