@@ -3,6 +3,11 @@ require './lib/IDatabaseObject'
 class Order < IDatabaseObject
   attr_accessor :name, :packages
 
+  def initialize(name, packages: {})
+    @name = name
+    @packages = packages
+  end
+
   # Override the db_table_name method of the IDatabaseObject class
   def db_table_name
     'orders'
@@ -19,11 +24,6 @@ class Order < IDatabaseObject
   # Override the db_primary_key method of the IDatabaseObject class
   def db_primary_key
     'orderid'
-  end
-
-  def initialize(name, packages: {})
-    @name = name
-    @packages = packages
   end
 
   # Prints the Order object

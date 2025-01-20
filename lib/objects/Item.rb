@@ -9,6 +9,15 @@ class Item < IDatabaseObject
                 :duration,
                 :package_id
 
+  
+  def initialize(name = nil, price = nil, ref = nil, warranty = nil, duration = nil)
+    @name = name
+    @price = price
+    @ref = ref
+    @warranty = warranty
+    @duration = duration
+  end
+
   # Override the db_table_name method of the IDatabaseObject class
   def db_table_name
     'items'
@@ -43,14 +52,6 @@ class Item < IDatabaseObject
 
   # Used to define the attributes that can be set on an Item object
   ALLOWED_ATTRIBUTES = %i[name price ref warranty duration].freeze
-
-  def initialize(name = nil, price = nil, ref = nil, warranty = nil, duration = nil)
-    @name = name
-    @price = price
-    @ref = ref
-    @warranty = warranty
-    @duration = duration
-  end
 
   # Prints the Item object
   # @param spaces [Integer] the number of spaces to print before the Item object (indentation)

@@ -3,6 +3,10 @@ require './lib/IDatabaseObject'
 class Package
   attr_accessor :items, :order_id
 
+  def initialize(items: {})
+    @items = items
+  end
+
   # Override the db_table_name method of the IDatabaseObject class
   def db_table_name
     'packages'
@@ -19,10 +23,6 @@ class Package
   # Override the db_primary_key method of the IDatabaseObject class
   def db_primary_key
     'packageid'
-  end
-
-  def initialize(items: {})
-    @items = items
   end
 
   # Prints the Package object
