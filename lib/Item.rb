@@ -13,4 +13,11 @@ class Item
     @warranty = warranty
     @duration = duration
   end
+
+  def dump(spaces: 0)
+    ALLOWED_ATTRIBUTES.each do |var|
+      # next if self.send(var).nil?
+      puts " " * spaces + "#{var}: #{self.send(var)}"
+    end
+  end
 end
