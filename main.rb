@@ -2,7 +2,7 @@ require './lib/Item'
 require './lib/Order'
 require './lib/Package'
 require './lib/ExcelParser'
-
+require './lib/Database'
 
 def get_orders(file_path)
     orders = {}
@@ -38,5 +38,15 @@ def print_orders(orders)
     end
 end
 
+def save_to_db(orders, db)
+    orders.each do |order_name, order|
+        order.save_to_db(db)
+    end
+end
+
 orders = get_orders(ARGV[0])
 print_orders(orders)
+
+db = Database.new('due', 'due', 'due', 'localhost', 5432)
+
+save_to_db(orders, db)

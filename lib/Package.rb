@@ -1,5 +1,18 @@
+require './lib/IDatabaseObject'
+
 class Package
-  attr_accessor :items
+  attr_accessor :items, :package_id, :order_id
+
+  def db_table_name
+    'packages'
+  end
+
+  def db_row
+    {
+      packageid: @package_id,
+      orderid: @order_id
+    }
+  end
 
   def initialize(items: {})
     @items = items
@@ -10,6 +23,15 @@ class Package
     @items.each do |item_id, item|
       puts(" " * (spaces + 2) + "Item: #{item_id}")
       item.dump(spaces: spaces + 4)
+    end
+  end
+
+  def save_to_db(db)
+    @package_id = db.get_next_id(self.db_table_name, 'packageid')
+    db.saveObject(self)
+    @items.each do |item_id, item|
+      item.package_id = @package_id
+      item.save_to_db(db)
     end
   end
 end
