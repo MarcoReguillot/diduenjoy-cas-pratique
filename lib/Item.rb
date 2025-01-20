@@ -1,15 +1,12 @@
 class Item
-  attr_accessor :item_id,
-                :package_id,
-                :name,
+  attr_accessor :name,
                 :price,
                 :ref,
                 :warranty,
                 :duration
 
-  def initialize(item_id, package_id, name, price, ref, warranty, duration)
-    @item_id = item_id
-    @package_id = package_id
+  ALLOWED_ATTRIBUTES = %i[name price ref warranty duration].freeze
+  def initialize(name = nil, price = nil, ref = nil, warranty = nil, duration = nil)
     @name = name
     @price = price
     @ref = ref

@@ -1,8 +1,7 @@
 class Package
-  attr_accessor :package_id, :order_id
+  attr_accessor :items
 
-  def initialize(package_id, order_id)
-    @package_id = package_id
-    @order_id = order_id
+  def initialize(items: {})
+    @items = items
   end
 end

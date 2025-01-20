@@ -1,8 +1,8 @@
 class Order
-  attr_accessor :order_id, :name
+  attr_accessor :name, :packages
 
-  def initialize(order_id, name)
-    @order_id = order_id
+  def initialize(name, packages: {})
     @name = name
+    @packages = packages
   end
 end
