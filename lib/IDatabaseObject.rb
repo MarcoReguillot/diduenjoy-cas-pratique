@@ -1,3 +1,4 @@
+# This interface is used to define the methods that a class must implement in order to be saved to the database using the Database class.
 class IDatabaseObject
   def db_row
     raise 'Not implemented'

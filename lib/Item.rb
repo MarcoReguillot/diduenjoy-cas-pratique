@@ -1,5 +1,6 @@
 require './lib/IDatabaseObject'
 
+
 class Item < IDatabaseObject
   attr_accessor :name,
                 :price,
@@ -8,10 +9,12 @@ class Item < IDatabaseObject
                 :duration,
                 :package_id
 
+  # Override the db_table_name method of the IDatabaseObject class
   def db_table_name
     'items'
   end
 
+  # Override the db_row method of the IDatabaseObject class
   def db_row
     warranty_value = case @warranty
       when 'NO'
@@ -32,11 +35,15 @@ class Item < IDatabaseObject
     }
   end
 
+  # Override the db_primary_key method of the IDatabaseObject class
   def db_primary_key
     'itemid'
   end
 
+
+  # Used to define the attributes that can be set on an Item object
   ALLOWED_ATTRIBUTES = %i[name price ref warranty duration].freeze
+
   def initialize(name = nil, price = nil, ref = nil, warranty = nil, duration = nil)
     @name = name
     @price = price
@@ -45,6 +52,8 @@ class Item < IDatabaseObject
     @duration = duration
   end
 
+  # Prints the Item object
+  # @param spaces [Integer] the number of spaces to print before the Item object (indentation)
   def dump(spaces: 0)
     ALLOWED_ATTRIBUTES.each do |var|
       # next if self.send(var).nil?
@@ -52,6 +61,7 @@ class Item < IDatabaseObject
     end
   end
 
+  # Saves the Item object to the database
   def save_to_db(db)
     @item_id = db.saveObject(self)
   end
